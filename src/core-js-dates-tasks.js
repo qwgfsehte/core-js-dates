@@ -146,8 +146,9 @@ function isDateInPeriod(date, period) {
  * '1999-01-05T02:20:00.000Z' => '1/5/1999, 2:20:00 AM'
  * '2010-12-15T22:59:00.000Z' => '12/15/2010, 10:59:00 PM'
  */
-function formatDate(/* date */) {
-  throw new Error('Not implemented');
+function formatDate(date) {
+  const resultDate = new Date(date);
+  return resultDate.toLocaleString('en-US', { timeZone: 'UTC' });
 }
 
 /**
@@ -192,8 +193,12 @@ function getWeekNumberByDate(/* date */) {
  * Date(2024, 0, 13) => Date(2024, 8, 13)
  * Date(2023, 1, 1) => Date(2023, 9, 13)
  */
-function getNextFridayThe13th(/* date */) {
-  throw new Error('Not implemented');
+function getNextFridayThe13th(date) {
+  const resultDate = new Date(date);
+  while (resultDate.getDay() !== 5 || resultDate.getDate() !== 13) {
+    resultDate.setDate(resultDate.getDate() + 1);
+  }
+  return resultDate;
 }
 
 /**
@@ -207,8 +212,17 @@ function getNextFridayThe13th(/* date */) {
  * Date(2024, 5, 1) => 2
  * Date(2024, 10, 10) => 4
  */
-function getQuarter(/* date */) {
-  throw new Error('Not implemented');
+function getQuarter(date) {
+  if (date.getMonth() <= 3) {
+    return 1;
+  }
+  if (date.getMonth() <= 6) {
+    return 2;
+  }
+  if (date.getMonth() <= 9) {
+    return 3;
+  }
+  return 4;
 }
 
 /**
