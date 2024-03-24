@@ -72,8 +72,19 @@ function getDayName(date) {
  * Date('2024-02-13T00:00:00Z') => Date('2024-02-16T00:00:00Z')
  * Date('2024-02-16T00:00:00Z') => Date('2024-02-23T00:00:00Z')
  */
-function getNextFriday(/* date */) {
-  throw new Error('Not implemented');
+function getNextFriday(date) {
+  const currentDay = date.getDay();
+  const nextFriday = new Date(date);
+  if (currentDay === 5) {
+    nextFriday.setDate(date.getDate() + 7);
+  }
+  if (currentDay < 5) {
+    nextFriday.setDate(date.getDate() + (5 - currentDay));
+  }
+  if (currentDay > 5) {
+    nextFriday.setDate(date.getDate() + (5 + (7 - currentDay)));
+  }
+  return nextFriday;
 }
 
 /**
@@ -163,8 +174,16 @@ function formatDate(date) {
  * 12, 2023 => 10
  * 1, 2024 => 8
  */
-function getCountWeekendsInMonth(/* month, year */) {
-  throw new Error('Not implemented');
+function getCountWeekendsInMonth(month, year) {
+  let totalNumberWeekends = 0;
+  const allDays = new Date(year, month, 0).getDate();
+  for (let i = 1; i <= allDays; i += 1) {
+    const data = new Date(year, month - 1, i);
+    if (data.getDay() === 0 || data.getDay() === 6) {
+      totalNumberWeekends += 1;
+    }
+  }
+  return totalNumberWeekends;
 }
 
 /**
@@ -178,8 +197,13 @@ function getCountWeekendsInMonth(/* month, year */) {
  * Date(2024, 0, 31) => 5
  * Date(2024, 1, 23) => 8
  */
-function getWeekNumberByDate(/* date */) {
-  throw new Error('Not implemented');
+function getWeekNumberByDate(date) {
+  const currentDate = new Date(date);
+  const startYearDate = new Date(currentDate.getFullYear(), 0, 1);
+  const differenceDate = currentDate - startYearDate;
+  return Math.ceil(
+    (differenceDate / (24 * 60 * 60 * 1000) + startYearDate.getDay() + 1) / 7
+  );
 }
 
 /**
