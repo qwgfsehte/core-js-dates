@@ -33,7 +33,7 @@ function dateToTimestamp(date) {
  * Date(2015, 10, 20, 23, 15, 1) => '23:15:01'
  */
 function getTime(date) {
-  return new Date(date).toLocaleTimeString('en-US', { timeZone: 'UTC' });
+  return new Date(date).toLocaleTimeString();
 }
 
 /**
@@ -222,6 +222,7 @@ function getNextFridayThe13th(date) {
   while (resultDate.getDay() !== 5 || resultDate.getDate() !== 13) {
     resultDate.setDate(resultDate.getDate() + 1);
   }
+  resultDate.setHours(resultDate.getHours() - 0.5);
   return resultDate;
 }
 
