@@ -218,7 +218,7 @@ function getWeekNumberByDate(date) {
  * Date(2023, 1, 1) => Date(2023, 9, 13)
  */
 function getNextFridayThe13th(date) {
-  console.log(date);
+  return date;
 }
 
 /**
