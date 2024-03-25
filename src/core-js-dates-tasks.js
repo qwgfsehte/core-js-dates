@@ -158,8 +158,7 @@ function isDateInPeriod(date, period) {
  * '2010-12-15T22:59:00.000Z' => '12/15/2010, 10:59:00 PM'
  */
 function formatDate(date) {
-  const resultDate = new Date(date);
-  return resultDate.toLocaleString('en-US', { timeZone: 'UTC' });
+  return date;
 }
 
 /**
@@ -218,7 +217,12 @@ function getWeekNumberByDate(date) {
  * Date(2023, 1, 1) => Date(2023, 9, 13)
  */
 function getNextFridayThe13th(date) {
-  return date;
+  const resultDate = new Date(date);
+  while (resultDate.getDay() !== 5 || resultDate.getDate() !== 13) {
+    resultDate.setDate(resultDate.getDate() + 1);
+  }
+  resultDate.setHours(resultDate.getHours() - 0.5);
+  return resultDate;
 }
 
 /**
